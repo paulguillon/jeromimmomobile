@@ -1,2 +1,4 @@
 export const ADD_PROPERTIES = "ADD_PROPERTIES";
 export const SELECTED_PROPERTY = "SELECTED_PROPERTY";
+export const LOGGED_IN = "LOGGED_IN";
+export const LOGGED_OUT = "LOGGED_OUT";

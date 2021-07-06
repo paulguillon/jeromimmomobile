@@ -5,13 +5,16 @@ import { Provider } from "react-redux";
 import AppNavigation from "./src/navigation"
 import store from "./src/redux/store";
 
+import Router from './src/navigation/router'
+
 export default function App() {
   return (
-    <Provider store={store}>
-      <SafeAreaView style={styles.container}>
-        <AppNavigation />
-      </SafeAreaView>
-    </Provider>
+    // <Provider store={store}>
+    //   <SafeAreaView style={styles.container}>
+    //     <AppNavigation />
+    //   </SafeAreaView>
+    // </Provider>
+     <Router/>
   );
 }
 

@@ -1,53 +1,32 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, Button } from 'react-native';
 
-import * as api from "../../api/auth";
-import {useAuth} from "./Auth";
-
-import {ErrorText} from "../../components/auth/Shared";
-
 export default function TabOneScreen() {
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
-  // const { handleLogin } = useAuth();
-
   const [loginInputValue, setLoginInputValue] = useState("");
   const [passwordInputValue, setPasswordInputValue] = useState("");
-
-  async function _onPressBtn(state) {
-    setLoading(true);
-
-    try {
-      console.log(state);
-        let response = await api.login(loginInputValue, passwordInputValue);
-        console.log(response.token);
-        // await handleLogin(response);
-
-        // setLoading(false);
-
-        //check if username is null
-        let username = (response.user.username !== null);
-        if (username) navigate('App');
-        else navigation.replace('Username');
-    } catch (error) {
-        setError(error.message);
-        setLoading(false)
+  const _onPressBtn = () => {
+    if (loginInputValue.length > 0 && passwordInputValue.length > 0) {
+      setLoginInputValue("");
+      setPasswordInputValue("");
     }
-  }
+  };
+
+  // const _onChangeText = value => {
+  //   setTitle(value);
+  // };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Se connecter</Text>
       <View style={styles.separator} />
       <Text style={styles.labelInput}>Identifiant</Text>
-      <TextInput style={styles.containerInput}
+      <TextInput style={styles.containerInput}  
         value={loginInputValue} onChangeText={identifiant => setLoginInputValue(identifiant)}
       />
       <Text style={styles.labelInput}>Mot de passe</Text>
-      <TextInput style={styles.containerInput}
+      <TextInput style={styles.containerInput}  
         value={passwordInputValue} onChangeText={password => setPasswordInputValue(password)}
       />
-      <ErrorText error={error}/>
       <View style={styles.separatorButton} />
       <Button onPress={_onPressBtn} title="Connexion" color="#68b0ab" />
     </View>
