@@ -4,7 +4,7 @@ const ENDPOINT_USER = "http://jeromimmo.fr/public/index.php/api/v1/";
 
 export async function register(data){
     try{
-
+console.log(data)
         let res = await axios.post(ENDPOINT_USER + "users", data);
 
         return res.data;

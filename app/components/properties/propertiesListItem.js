@@ -6,7 +6,7 @@ const URL_IMAGE = "http://jeromimmo.fr/public/img/properties/";
 const PropertiesListItem = ({ item, navigation }) => {
   
   return (
-    <TouchableOpacity 
+    <TouchableOpacity key={item.idProperty}
       onPress={() => {
         navigation.navigate("Propriété", {
           id: item.idProperty,

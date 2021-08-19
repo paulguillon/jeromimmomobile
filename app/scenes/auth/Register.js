@@ -3,7 +3,7 @@ import {Alert, View} from 'react-native';
 
 import * as api from "../../services/auth";
 
-import Form, {TYPES} from 'react-native-basic-form';
+import Form from 'react-native-basic-form';
 import CTA from "../../components/CTA";
 import {Header, ErrorText} from "../../components/Shared";
 
@@ -14,12 +14,21 @@ export default function Register(props) {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
 
+    const initialData = {
+        "idRoleUser": 2,
+        "updated_by": 1,
+        "created_by": 1,
+    };
+
     const fields = [
         {name: 'firstnameUser', label: 'Prénom', required: true},
         {name: 'lastnameUser', label: 'Nom', required: true},
         {name: 'emailUser', label: 'Email', required: true},
         {name: 'passwordUser', label: 'Mot de passe', required: true, secure:true},
         {name: 'passwordUser_confirmation', label: 'Confirmation du mot de passe', required: true, secure:true},
+        {name: 'idRoleUser', label: 'idRoleUser', required: true},
+        {name: 'updated_by', label: 'Updated_by', required: true},
+        {name: 'created_by', label: 'created_by', required: true},
     ];
 
     async function onSubmit(state) {
@@ -40,7 +49,7 @@ export default function Register(props) {
         }
     }
 
-    let formProps = {title: "Envoyer", fields, onSubmit, loading };
+    let formProps = {title: "Envoyer", fields, initialData, onSubmit, loading };
     return (
         <View style={{flex: 1, paddingHorizontal: 16, backgroundColor:"#fff"}}>
             <Header title={"Nouveau compte"}/>

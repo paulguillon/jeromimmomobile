@@ -19,6 +19,8 @@
     "jwt-decode": "^3.1.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",
+    "leaflet": "^1.6.0",
+    "react-leaflet": "^2.7.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-41.0.0.tar.gz",
     "react-native-basic-form": "^1.1.11",
     "react-native-datepicker": "^1.7.2",

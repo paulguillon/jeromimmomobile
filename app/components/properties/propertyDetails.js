@@ -6,7 +6,7 @@ import { getSelectedProperty } from "../../redux/selectors";
 import { fetchSelectedProperty } from "../../services/properties";
 
 const PropertyDetailsScreen = ({ route }) => {
-  const { id } = route.params;
+  const {id } = route.params; 
   const dispatch = useDispatch();
 
   const property = useSelector(getSelectedProperty);

@@ -22,7 +22,7 @@ export default function Home({navigation}) {
            
             <Button style={styles.separatorItems} title={"Log Out"} onPress={() => {
                 handleLogout();
-                navigate('Auth');
+                navigation.navigate('Auth');
             }}/>
         </View>
     );
