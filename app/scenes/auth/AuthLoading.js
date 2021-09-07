@@ -22,11 +22,11 @@ export default function AuthLoading(props) {
 
                 if (username) navigate('App');
                 // else navigate('Auth', {}, StackActions.replace({ routeName: "Username" }))
-                else navigate('Auth', {}, StackActions.replace({ routeName: "Login" }))
+                else navigate('App')
 
-            } else navigate('Auth');
+            } else navigate('App');
         } catch (e) {
-            navigate('Auth');
+            navigate('App');
         }
     }
 

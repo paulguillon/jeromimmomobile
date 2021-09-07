@@ -8,11 +8,17 @@ import PropertiesNavigator from "./PropertiesNavigator";
 import HomeScreen from "../scenes/home/Profile";
 import UpdateProfileScreen from "../scenes/home/UpdateProfile";
 import ProfileNavigator from "./ProfileNavigator";
+import LoginNavigator from "./loginNavigator";
 
+import { useAuth } from "../providers/Auth";
 
 const Tabs = createBottomTabNavigator();
 
 export default function Properties() {
+  const {state} = useAuth();
+  // const idUser = "";
+  const idUser = state.user !== null ? state.user.idUser : "";
+  // console.log(state.user);
   return (
       <NavigationContainer>
         <Tabs.Navigator 
@@ -23,7 +29,9 @@ export default function Properties() {
 
               if (route.name === "Liste des propriétés") {
                 icon = "ios-home";
-              } else {
+              } if (route.name === "Mes favoris") {
+                icon = "ios-heart";
+              } if (route.name === "Profil" || route.name === "Login") {
                 icon = "ios-person-circle";
               }
 
@@ -31,8 +39,14 @@ export default function Properties() {
             }
           })}
         >
-            <Tabs.Screen name="Liste des propriétés" component={PropertiesNavigator} />
-          <Tabs.Screen name="Profil" component={ProfileNavigator} />
+          <Tabs.Screen name="Liste des propriétés" component={PropertiesNavigator} />
+          <Tabs.Screen name="Mes favoris" component={PropertiesNavigator} />
+          {idUser ? 
+            <Tabs.Screen name="Profil" component={ProfileNavigator} /> : 
+            <Tabs.Screen name="Login" component={LoginNavigator} /> 
+          }
+          {/* <Tabs.Screen name="Login" component={LoginNavigator} />
+          <Tabs.Screen name="Profil" component={ProfileNavigator} /> */}
         </Tabs.Navigator>
       </NavigationContainer>
   );

@@ -2,22 +2,27 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, FlatList, Text } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import {SearchBar} from 'react-native-elements';
+import { useAuth } from "../../providers/Auth";
 
 import { fetchProperties } from "../../services/properties"
-import { getProperties } from "../../redux/selectors";
+import { fetchFavoritesProperties } from "../../services/properties/favorites"
 import PropertiesListItem from "../../components/properties/propertiesListItem";
-import { getFilteredProperties, getFilters } from "../../redux/selectors";
+import { getFilteredProperties, getFilters, getProperties } from "../../redux/selectors";
 
 export default function PropertiesListScreen({ navigation }) {
 
   const filteredProperties = useSelector(getFilteredProperties);
 
   const dispatch = useDispatch();
+  const {state} = useAuth();
+  const idUser = state.user !== null ? state.user.idUser : "";
+
   const properties = useSelector(getProperties);
   const filters = useSelector(getFilters);
 
   useEffect(() => {
-    fetchProperties(dispatch)
+    fetchProperties(dispatch),
+    idUser ? fetchFavoritesProperties(dispatch, idUser) : ""
   }, []);
 
   const _renderItem = ({ item }) => {

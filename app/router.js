@@ -7,6 +7,7 @@ import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 //IMPORT ROUTES
 import AuthStack from "./routes/auth";
 import Properties from "./routes/properties";
+import Login from "./routes/login";
 
 import AuthLoading from "./scenes/auth/AuthLoading";
 import AuthProvider from "./providers/Auth";
@@ -16,7 +17,8 @@ const AppStack = createSwitchNavigator(
     {
         Loading: AuthLoading,
         Auth: AuthStack,
-        App: Properties
+        App: Properties,
+        Login: Login
     },
     {initialRouteName: 'Loading'}
 );

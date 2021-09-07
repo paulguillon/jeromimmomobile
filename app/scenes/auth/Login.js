@@ -38,7 +38,7 @@ export default function Login(props) {
 
             //check if username is null
             let token = (response.token !== null);
-            if (token) navigate('App');
+            if (token) navigate('Liste des propriétés');
             else navigation.replace('Login');
         } catch (error) {
             setError(error.message);

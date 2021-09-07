@@ -66,6 +66,8 @@ function AuthProvider(props) {
             //REMOVE DATA
             await AsyncStorage.multiRemove(keys);
 
+            console.log('in')
+
             //AXIOS AUTHORIZATION HEADER
             delete axios.defaults.headers.common["Authorization"];
 

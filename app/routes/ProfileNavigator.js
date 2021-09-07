@@ -5,6 +5,7 @@ import HomeScreen from "../scenes/home/Profile";
 import UpdateProfileScreen from "../scenes/home/UpdateProfile";
 import UpdatePasswordScreen from "../scenes/home/UpdatePassword";
 import AuthStack from "./auth";
+import PropertiesNavigator from "./PropertiesNavigator";
 
 const Stack = createStackNavigator();
 
@@ -15,6 +16,7 @@ export default function ProfileNavigator() {
         <Stack.Screen name="Modifier mon profil" component={UpdateProfileScreen} />
         <Stack.Screen name="Modifier mon mot de passe" component={UpdatePasswordScreen} />
         <Stack.Screen name="Auth" component={AuthStack} />
+        <Stack.Screen name="Liste des propriétés" component={PropertiesNavigator} />
     </Stack.Navigator>
   );
 };
