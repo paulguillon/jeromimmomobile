@@ -2,24 +2,13 @@ import React, { useState } from 'react';
 import { Alert, View } from 'react-native';
 
 import * as api from "../../services/properties/index";
-import ImageUpload from '../../components/ImageUpload'
 
 import Form, {TYPES} from 'react-native-basic-form';
 import CTA from "../../components/CTA";
 import {Header, ErrorText} from "../../components/Shared";
 
-// import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import ImagePicker from 'react-native-image-crop-picker';
 
 export default function AddProperty (props) {
-
-    ImagePicker.openCamera({
-        width: 300,
-        height: 400,
-        cropping: true,
-      }).then(image => {
-        console.log(image);
-      });
 
     const {navigation} = props;
 
