@@ -11,3 +11,5 @@ export const getFilters = (store) => store.filters;
 export const getFavorites = (store) => store.favoritesProperties;
 
 export const toggleFavorite = (store) => store.toggleFavorite;
+
+export const getFavorite = (store) => store.favoriteProperty;

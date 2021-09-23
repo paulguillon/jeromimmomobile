@@ -15,7 +15,7 @@ import { useAuth } from "../providers/Auth";
 
 const Tabs = createBottomTabNavigator();
 
-export default function Login() {
+export default function Logout() {
 
   const {state} = useAuth();
   console.log(state);
@@ -44,8 +44,7 @@ export default function Login() {
           })}
         >
           <Tabs.Screen name="Liste des propriétés" component={PropertiesNavigator} />
-          <Tabs.Screen name="Mes favoris" options={{ tabBarBadge: favorites.length }} component={FavoritesNavigator} />
-          <Tabs.Screen name="Profil" component={ProfileNavigator} />
+          <Tabs.Screen name="Login" component={LoginNavigator} /> 
         </Tabs.Navigator>
       // </NavigationContainer>
   );

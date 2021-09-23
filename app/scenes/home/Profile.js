@@ -7,6 +7,7 @@ export default function Home({navigation}) {
 
     const {state, handleLogout} = useAuth();
     const user = state.user;
+    console.log(user);
 
     return (
         <View style={{flex: 1, backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center'}}>

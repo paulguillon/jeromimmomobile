@@ -50,9 +50,13 @@ function AuthProvider(props) {
             let idUser = jwt_decode(data.token).idUser;
             let dataUser = await api.getProfile(idUser);
 
+            let userRole = await api.getRole(idUser);
+            console.log(userRole, "userRole")
+        
             //DISPATCH TO REDUCER
-            dispatch({type: LOGGED_IN, user:dataUser});
+            dispatch({type: LOGGED_IN, user:dataUser, role:userRole});
             
+            return userRole.roleName;
             
         }catch (error) {
             throw new Error(error);
@@ -65,8 +69,6 @@ function AuthProvider(props) {
 
             //REMOVE DATA
             await AsyncStorage.multiRemove(keys);
-
-            console.log('in')
 
             //AXIOS AUTHORIZATION HEADER
             delete axios.defaults.headers.common["Authorization"];

@@ -1,26 +1,30 @@
 import React from 'react';
+import { useSelector } from "react-redux";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from '@expo/vector-icons';
 
 //IMPORT SCENES
-import PropertiesNavigator from "./PropertiesNavigator";
-import HomeScreen from "../scenes/home/Profile";
-import UpdateProfileScreen from "../scenes/home/UpdateProfile";
+import { PropertiesNavigator, FavoritesNavigator } from "./PropertiesNavigator";
 import ProfileNavigator from "./ProfileNavigator";
 import LoginNavigator from "./loginNavigator";
+
+import { getFavorites } from "../redux/selectors";
 
 import { useAuth } from "../providers/Auth";
 
 const Tabs = createBottomTabNavigator();
 
 export default function Properties() {
+
   const {state} = useAuth();
-  // const idUser = "";
+  console.log(state);
   const idUser = state.user !== null ? state.user.idUser : "";
-  // console.log(state.user);
+
+  const favorites = useSelector(getFavorites);
+
   return (
-      <NavigationContainer>
+      // <NavigationContainer>
         <Tabs.Navigator 
           screenOptions={
             ({ route }) => ({
@@ -40,14 +44,16 @@ export default function Properties() {
           })}
         >
           <Tabs.Screen name="Liste des propriétés" component={PropertiesNavigator} />
-          <Tabs.Screen name="Mes favoris" component={PropertiesNavigator} />
-          {idUser ? 
-            <Tabs.Screen name="Profil" component={ProfileNavigator} /> : 
+          
+          {idUser ? (
+            <>
+              <Tabs.Screen name="Mes favoris" options={{ tabBarBadge: favorites.length }} component={FavoritesNavigator} />
+              <Tabs.Screen name="Profil" component={ProfileNavigator} />
+            </>
+          ) : (
             <Tabs.Screen name="Login" component={LoginNavigator} /> 
-          }
-          {/* <Tabs.Screen name="Login" component={LoginNavigator} />
-          <Tabs.Screen name="Profil" component={ProfileNavigator} /> */}
+          )}
         </Tabs.Navigator>
-      </NavigationContainer>
+      // </NavigationContainer>
   );
 };

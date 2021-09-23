@@ -1,4 +1,4 @@
-import { ADD_PROPERTIES, SELECTED_PROPERTY, PROPERTY_MAP, FILTERED_PROPERTIES, FILTERS, FAVORITES_PROPERTIES, TOGGLE_FAVORITE } from "./actionTypes";
+import { ADD_PROPERTIES, SELECTED_PROPERTY, PROPERTY_MAP, FILTERED_PROPERTIES, FILTERS, FAVORITES_PROPERTIES, TOGGLE_FAVORITE, FAVORITE_PROPERTY } from "./actionTypes";
 
 export const fetchPropertiesAction = (data) => ({
     type: ADD_PROPERTIES,
@@ -44,6 +44,13 @@ export const fetchFavoritesPropertiesAction = (data) => ({
 
 export const fetchToggleFavoriteAction = (data) => ({
     type: TOGGLE_FAVORITE,
+    payload: {
+        data,
+    }
+})
+
+export const fetchFavoritePropertyAction = (data) => ({
+    type: FAVORITE_PROPERTY,
     payload: {
         data,
     }

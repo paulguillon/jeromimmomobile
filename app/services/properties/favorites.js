@@ -2,7 +2,8 @@ import axios from "axios";
 
 import {
     fetchFavoritesPropertiesAction,
-    fetchToggleFavoriteAction
+    fetchToggleFavoriteAction,
+    fetchFavoritePropertyAction
 } from "../../redux/actions";
 
 const ENDPOINT_PROPERTIES = "http://jeromimmo.fr/public/index.php/api/v1";
@@ -12,14 +13,29 @@ export const fetchFavoritesProperties = async (dispatch, userId) => {
     const response = await axios.get(ENDPOINT_PROPERTIES + "/users/" + userId + "/favorites");
 
     const favorites = response.data;
-    console.log(favorites);
 
     dispatch(fetchFavoritesPropertiesAction(favorites));
 
   } catch (e) {
-    console.log("error", e);
+    console.log("error fetch favorites", e);
   }
 };
+
+export const fetchFavoriteProperty = async (dispatch, userId, propertyId) => {
+    try {
+      const response = await axios.get(ENDPOINT_PROPERTIES + "/favorites/?idUser=" + userId + "&idProperty=" + propertyId);
+      const favorite = response.data;
+
+      const userFavorites = await axios.get(ENDPOINT_PROPERTIES + "/users/" + userId + "/favorites");
+      const favorites = userFavorites.data;
+      dispatch(fetchFavoritesPropertiesAction(favorites));
+  
+      return favorite;
+  
+    } catch (e) {
+      console.log("error fetch favorite", e);
+    }
+  };
 
 export const fetchToggleFavorite = async (dispatch, userId, propertyId) => {
     try {
@@ -36,9 +52,8 @@ export const fetchToggleFavorite = async (dispatch, userId, propertyId) => {
           idProperty: propertyId,
         }
       });
-      console.log(response);
-  
+
     } catch (e) {
-      console.log("error", e);
+      console.log("error toggle favorite", e);
     }
   };

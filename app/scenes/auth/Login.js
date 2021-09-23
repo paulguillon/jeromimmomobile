@@ -3,14 +3,18 @@ import {View} from 'react-native';
 
 import * as api from "../../services/auth";
 import { useAuth } from "../../providers/Auth";
+import AuthLoading from "./AuthLoading";
 
 import Form from 'react-native-basic-form';
 import CTA from "../../components/CTA";
 import {Header, ErrorText} from "../../components/Shared";
+import { NavigationActions } from 'react-navigation';
 
 export default function Login(props) {
     const {navigation} = props;
     const {navigate} = navigation;
+
+    const {state} = useAuth();
     
     //1 - DECLARE VARIABLES
     const [error, setError] = useState(null);
@@ -32,14 +36,22 @@ export default function Login(props) {
 
         try {
             let response = await api.login(state);
-            await handleLogin(response);
+            let roleName = await handleLogin(response);
 
             setLoading(false);
 
             //check if username is null
             let token = (response.token !== null);
-            if (token) navigate('Liste des propriétés');
-            else navigation.replace('Login');
+
+            // if (token) navigate('Liste des propriétés');
+            // if (token && roleName === "admin") navigate('Profil');
+            {AuthLoading};
+            console.log(AuthLoading);
+            // if (token && roleName === "admin") NavigationActions.navigate({
+            //     routeName: 'Loading',
+            //     params: {}
+            //   })
+            // else navigation.replace('Login');
         } catch (error) {
             setError(error.message);
             setLoading(false)

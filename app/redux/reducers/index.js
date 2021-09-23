@@ -7,6 +7,7 @@ import { filteredProperties } from "./filteredProperties";
 import { filters } from "./filters";
 import { favoritesProperties } from "./favoritesProperties";
 import { toggleFavorite } from "./toggleFavorite";
+import { favoriteProperty } from "./favoriteProperty";
 
 export default combineReducers({
     propertiesList,
@@ -15,5 +16,6 @@ export default combineReducers({
     filteredProperties,
     filters,
     favoritesProperties,
-    toggleFavorite
+    toggleFavorite,
+    favoriteProperty
 });

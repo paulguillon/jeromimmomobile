@@ -4,7 +4,6 @@ const ENDPOINT_USER = "http://jeromimmo.fr/public/index.php/api/v1/";
 
 export async function register(data){
     try{
-console.log(data)
         let res = await axios.post(ENDPOINT_USER + "users", data);
 
         return res.data;
@@ -50,6 +49,23 @@ export async function getProfile(userId){
     }
 }
 
+export async function getRole(userId){
+    try{
+        const options = {
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "multipart/form-data"
+            }
+        };
+        
+        let res = await axios.get(ENDPOINT_USER + "roles/" + userId, options);
+console.log(res.data, "getRole")
+        return res.data;
+    }catch (e) {
+        throw handler(e);
+    }
+}
+
 export async function updateProfile(userId, data){
     try{
         const options = {
@@ -69,7 +85,7 @@ export async function updateProfile(userId, data){
 
         return res.data;
     }catch (e) {
-        console.log("error", e);
+        console.log("error maj profil", e);
         throw handler(e);
     }
 }

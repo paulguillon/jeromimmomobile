@@ -5,7 +5,7 @@ import HomeScreen from "../scenes/home/Profile";
 import UpdateProfileScreen from "../scenes/home/UpdateProfile";
 import UpdatePasswordScreen from "../scenes/home/UpdatePassword";
 import AuthStack from "./auth";
-import PropertiesNavigator from "./PropertiesNavigator";
+import { PropertiesNavigator } from "./PropertiesNavigator";
 
 const Stack = createStackNavigator();
 

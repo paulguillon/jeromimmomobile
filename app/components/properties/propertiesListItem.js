@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, Modal, Pressable, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
-import { getFavorites } from "../../redux/selectors";
+import { fetchFavoriteProperty } from "../../services/properties/favorites";
 import { fetchToggleFavorite } from "../../services/properties/favorites";
 
 import { useAuth } from "../../providers/Auth";
@@ -15,21 +15,14 @@ const PropertiesListItem = ({ item, navigation }) => {
 
   const {state} = useAuth();
   const [favorite, setFavorite] = useState("");
+  const [modalVisible, setModalVisible] = useState(false);
 
   const idUser = state.user !== null ? state.user.idUser : "";
   const dispatch = useDispatch();
-  const favorites = useSelector(getFavorites);
-  let icon = "heart-outline";
 
-  // setFavorite(icon);
-
-  {idUser && favorites.length > 0 && (
-    favorites.map(propertyFavorite => (
-      propertyFavorite.idProperty === item.idProperty && (
-        icon = "heart"
-      )
-    ))
-  )}
+  useEffect(() => {
+    idUser ? fetchFavoriteProperty(dispatch, idUser, item.idProperty).then(data => setFavorite(data ? "heart" : "heart-outline")) : ""
+  }, []);
   
   {item.data && (
     item.data.map(propertyData => (
@@ -57,17 +50,36 @@ const PropertiesListItem = ({ item, navigation }) => {
       }}
     >
       <View style={styles.container}>
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+            setModalVisible(!modalVisible);
+          }}
+        >
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Text style={styles.modalText}>Vous devez être connecté pour avoir accès aux favoris</Text>
+              <Pressable
+                style={[styles.button, styles.buttonClose]}
+                onPress={() => setModalVisible(!modalVisible)}
+              >
+                <Text style={styles.closeTextStyle}>Fermer</Text>
+              </Pressable>
+            </View>
+          </View>
+        </Modal>
         <Image source={{ uri : item.thumbnail }} style={styles.image} />
         <Text style={styles.title}>{item.typeProperty}</Text>
         <Text style={styles.info}>{item.surface} . {item.rooms} . {item.chambers}</Text>
         <Text style={styles.info}>{item.zipCodeProperty} {item.cityProperty}</Text>
         <Text style={styles.price}>{item.priceProperty} €</Text>
         <TouchableOpacity style={styles.iconContainer} onPress={() => { 
-          
-              fetchToggleFavorite(dispatch, idUser, item.idProperty)
-              // setFavorite(favorite === "heart" ? "heart-outline" : "heart")
+              idUser ? (fetchToggleFavorite(dispatch, idUser, item.idProperty) ? setFavorite(favorite === "heart" ? "heart-outline" : "heart") : "") : setModalVisible(true)
          }}>
-            <Ionicons style={styles.icons} name={icon} size={24} color="red" />
+            <Ionicons style={styles.icons} name={favorite ? favorite : "heart-outline"} size={24} color="red" />
         </TouchableOpacity>
       </View>
     </TouchableOpacity>
@@ -112,6 +124,44 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginLeft: 25,
   },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2
+  },
+  buttonClose: {
+    backgroundColor: "#2196F3",
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center"
+  },
+  closeTextStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center"
+  }
 });
 
 export default PropertiesListItem;

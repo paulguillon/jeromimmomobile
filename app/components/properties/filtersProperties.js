@@ -21,7 +21,6 @@ export default function Filters({navigation}) {
 
     const dispatch = useDispatch();
     const filters = useSelector(getFilters);
-    console.log(filters);
 
     const typeProperty = [
         {label:"Tous", value:"Tous"},

@@ -43,7 +43,7 @@ export const fetchSelectedProperty = async (dispatch, propertyId) => {
 
     dispatch(fetchSelectedPropertyAction(property));
   } catch (e) {
-    console.log("error", e);
+    console.log("error fetch property", e);
   }
 };
 
