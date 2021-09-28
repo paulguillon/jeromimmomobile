@@ -24,10 +24,12 @@ export default function FavoritesListScreen({ navigation }) {
 
   let favoritesArray = [];
   let propertyArray = [];
+  console.log(favorites);
 
-  favorites.forEach(favorite => {
-    favoritesArray.push(favorite.idProperty);
-  });
+
+  Object.keys(favorites).map((favorite) => (
+    favoritesArray.push(favorites[favorite].idProperty)
+  ));
 
   properties.forEach(property => {
     if (favoritesArray.includes(property.idProperty)) {

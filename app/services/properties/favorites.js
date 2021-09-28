@@ -13,7 +13,7 @@ export const fetchFavoritesProperties = async (dispatch, userId) => {
     const response = await axios.get(ENDPOINT_PROPERTIES + "/users/" + userId + "/favorites");
 
     const favorites = response.data;
-
+console.log(favorites)
     dispatch(fetchFavoritesPropertiesAction(favorites));
 
   } catch (e) {
